@@ -1,6 +1,4 @@
-import 'package:clip_cuts/const/const_color.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 void showCommonSnackbar({
   required BuildContext context,

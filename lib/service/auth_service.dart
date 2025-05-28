@@ -9,7 +9,6 @@ class AuthService {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString(AppConstant.kAuthToken);
     AppConstant.token = token ?? "";
-    final refreshToken = prefs.getString(AppConstant.kRefreshToken);
 
     if (token != null) {
       AuthInterceptor.setToken(token);

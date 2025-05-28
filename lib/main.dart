@@ -3,7 +3,6 @@ import 'package:clip_cuts/routes/app_routes.dart';
 import 'package:clip_cuts/routes/navigation_services.dart';
 import 'package:clip_cuts/service/auth_service.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'const/const_app_fonts.dart';
 

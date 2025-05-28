@@ -181,7 +181,7 @@ class HomeScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(label, style: AppFonts.ralewayMedium.copyWith(fontSize: 10, color: AppColors.secondaryHintColor)),
-        Text(value ?? "", style: AppFonts.ralewaySemiBold.copyWith(fontSize: 13, color: AppColors.secondaryLabelColor)),
+        Text(value, style: AppFonts.ralewaySemiBold.copyWith(fontSize: 13, color: AppColors.secondaryLabelColor)),
       ],
     );
   }
