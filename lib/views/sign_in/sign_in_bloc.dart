@@ -33,12 +33,12 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
 
 
   Future<void> _loadSavedCredentials() async {
-    bool? savedRememberMe = getBoolAsync('remember_me');
-    if (savedRememberMe) {
-      emailController.text = getStringAsync('saved_email');
-      passwordController.text = getStringAsync('saved_password');
-      rememberMe = true;
-    }
+    // bool? savedRememberMe = getBoolAsync('remember_me');
+    // if (savedRememberMe) {
+    //   emailController.text = getStringAsync('saved_email');
+    //   passwordController.text = getStringAsync('saved_password');
+    //   rememberMe = true;
+    // }
   }
 
   Future<void> _onSignInButtonPressed(SignInButtonEvent event, Emitter<SignInState> emit) async {
