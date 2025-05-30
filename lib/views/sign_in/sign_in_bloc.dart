@@ -14,6 +14,8 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final SignInRepo _signInRepo = SignInRepo();
+  final FocusNode emailFocusNode = FocusNode();
+  final FocusNode passwordFocusNode = FocusNode();
   late SharedPreferences sharedPreferences;
 
   bool rememberMe = false;

@@ -59,15 +59,21 @@ class HomeScreen extends StatelessWidget {
                             image: DecorationImage(image: AssetImage(AppImages.profile)),
                           ),
                         ),
-                        Text("ClipCuts", style: AppFonts.ralewayItalic.copyWith(fontSize: 30, color: AppColors.white)),
-                        IconButton(
-                            alignment: Alignment.center,
-                            color: AppColors.white,
-                            iconSize: 28,
-                            onPressed: () {
-                              showLogoutBottomSheet(context);
-                            },
-                            icon: Icon(Icons.logout))
+                        Text(AppConstText.appLabel, style: TextStyle(fontFamily: AppConstFonts.pattayaRegular, fontSize: 30, color: AppColors.white)),
+                        InkWell(
+                          onTap: (){
+                            showLogoutBottomSheet(context);
+                          },
+                          child: Image.asset(AppImages.logout,height: 25,width: 28,alignment: Alignment.center),
+                        ),
+                        // IconButton(
+                        //     alignment: Alignment.center,
+                        //     color: AppColors.white,
+                        //     iconSize: 28,
+                        //     onPressed: () {
+                        //
+                        //     },
+                        //     icon: Icon(Icons.logout))
                       ],
                     ),
                   ),
@@ -79,7 +85,8 @@ class HomeScreen extends StatelessWidget {
                     controller: context.read<HomeBloc>().searchController,
                     textInputAction: TextInputAction.done,
                     textFieldType: TextFieldType.OTHER,
-                    icon: Icons.search,
+                    iconName: AppImages.search,
+                    contexts: context,
                     hintText: AppHintText.hintSearch,
                     onChanged: (value) {
                       context.read<HomeBloc>().add(SearchPetsEvent(value));
@@ -208,7 +215,7 @@ class HomeScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Are you sure you want to\nlogout?",
+                    AppConstText.lblLogOut,
                     textAlign: TextAlign.center,
                     style: AppFonts.ralewayBold.copyWith(
                       fontSize: 22,
@@ -230,7 +237,7 @@ class HomeScreen extends StatelessWidget {
                             AuthService.logout();
                           },
                           child: Text(
-                            "YES",
+                            AppConstText.lblYes,
                             style: AppFonts.ralewayBold.copyWith(
                               fontSize: 16,
                               color: AppColors.primaryTextColor,
@@ -251,7 +258,7 @@ class HomeScreen extends StatelessWidget {
                             Navigator.pop(context);
                           },
                           child: Text(
-                            "NO",
+                            AppConstText.lblNo,
                             style: AppFonts.ralewayBold.copyWith(
                               fontSize: 16,
                               color: AppColors.white,

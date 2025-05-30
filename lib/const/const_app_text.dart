@@ -1,8 +1,13 @@
 class AppConstText {
   static const String appName = "Clip Cuts";
+  static const String appLabel = "ClipCuts";
 
   ///Dialog MSG
   static const String lblLogOut = "Are you sure you want to\nlogout?";
+
+  ///Button
+  static const String lblYes = "Yes";
+  static const String lblNo = "No";
 
 }
 
@@ -15,9 +20,11 @@ class AppHintText {
 
 class AppValidation {
 
-  static const userEmpty = "Please enter your User ID.";
-  static const passwordEmpty = "Please enter your password.";
-  static const errorMessage = "Oops! Something went wrong.";
+  static const emailEmpty = "Please enter email.";
+  static const emailNotValid = "Please enter proper email.";
+  static const passwordEmpty = "Please enter password.";
+  static const passwordNotValid = "Please enter password.";
+  static const errorMessage = "Please enter proper password with minimum 8 characters.";
 }
 
 class AppRegex {

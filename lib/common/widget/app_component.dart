@@ -15,7 +15,8 @@ class AppComponent{
    TextInputType? keyboardType,
     TextInputAction? textInputAction,
    String? Function(String?)? validator,
-   Function(String)? onChanged
+   Function(String)? onChanged,
+   required BuildContext contexts
 }){
     return AppTextField(
       controller: controller,
@@ -35,20 +36,17 @@ class AppComponent{
         }),
         focusColor: AppColors.primaryColor.withValues(alpha: 0.1),
         hintText: hintText,
-        hintStyle: AppFonts.ralewayRegular.copyWith(color:  WidgetStateColor.resolveWith((states) {
-          if (states.contains(WidgetState.focused)) {
-            return AppColors.primaryColor;
-          }
-          return AppColors.iconColor;
-        })),
+        hintStyle: AppFonts.ralewayRegular.copyWith(color: AppColors.iconColor),
         suffixIcon: Image.asset(iconName ?? "", width: 25, height: 25,
           errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-            return Icon(icon ?? Icons.notes, size: 25, color: WidgetStateColor.resolveWith((states) {
+            return Icon(icon ?? Icons.notes, size: 25,
+                color: WidgetStateColor.resolveWith((states) {
               if (states.contains(WidgetState.focused)) {
                 return AppColors.primaryColor;
               }
               return AppColors.iconColor;
-            }));
+            })
+            );
           }),
         border: const OutlineInputBorder(
             borderSide: BorderSide(color: AppColors.normalBorderColor, width: 1),

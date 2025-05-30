@@ -1,5 +1,5 @@
 import 'package:clip_cuts/const/const_color.dart';
-import 'package:flutter/Material.dart';
+import 'package:flutter/material.dart';
 
 class AppConstFonts {
   static const String ralewayBlack = 'Raleway-Black';
@@ -20,6 +20,7 @@ class AppConstFonts {
   static const String ralewaySemiBoldItalic = 'Raleway-SemiBoldItalic';
   static const String ralewayThin = 'Raleway-Thin';
   static const String ralewayThinItalic = 'Raleway-ThinItalic';
+  static const String pattayaRegular = 'Pattaya-Regular';
 
 }
 

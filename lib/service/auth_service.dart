@@ -17,7 +17,6 @@ class AuthService {
 
   static Future<bool> saveAuthToken(String token) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    // setString returns a Future<bool> indicating whether the operation succeeded.
     return await prefs.setString(AppConstant.kAuthToken, token);
   }
 
