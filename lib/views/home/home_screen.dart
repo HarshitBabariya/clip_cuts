@@ -59,21 +59,13 @@ class HomeScreen extends StatelessWidget {
                             image: DecorationImage(image: AssetImage(AppImages.profile)),
                           ),
                         ),
-                        Text(AppConstText.appLabel, style: TextStyle(fontFamily: AppConstFonts.pattayaRegular, fontSize: 30, color: AppColors.white)),
+                        Text(AppConstText.appLabel, style: TextStyle(fontFamily: AppConstFonts.pattayaRegular ,fontSize: 30, color: AppColors.white)),
                         InkWell(
                           onTap: (){
                             showLogoutBottomSheet(context);
                           },
                           child: Image.asset(AppImages.logout,height: 25,width: 28,alignment: Alignment.center),
                         ),
-                        // IconButton(
-                        //     alignment: Alignment.center,
-                        //     color: AppColors.white,
-                        //     iconSize: 28,
-                        //     onPressed: () {
-                        //
-                        //     },
-                        //     icon: Icon(Icons.logout))
                       ],
                     ),
                   ),
@@ -155,7 +147,7 @@ class HomeScreen extends StatelessWidget {
                                           )
                                         ],
                                       ),
-                                      Text("ID:${tempDetails.petId ?? ""}", style: AppFonts.ralewayMedium.copyWith(fontSize: 12, color: AppColors.labelHintColor)),
+                                      Text("${AppConstText.lblId.toUpperCase()}:${tempDetails.petId ?? ""}", style: AppFonts.ralewayMedium.copyWith(fontSize: 12, color: AppColors.labelHintColor)),
                                     ],
                                   ),
                                 ],
@@ -165,9 +157,9 @@ class HomeScreen extends StatelessWidget {
                                 spacing: 5,
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  _buildShowDetails(label: "Matting", value: dateFormat(tempDetails.matingDate ?? DateTime.now())),
-                                  _buildShowDetails(label: "Breeding Partner", value: tempDetails.breedingType ?? ""),
-                                  _buildShowDetails(label: "Pregnancy", value: (tempDetails.isPregnancy ?? false) ? "Y" : "N"),
+                                  _buildShowDetails(label: AppConstText.lblMatting, value: dateFormat(tempDetails.matingDate ?? DateTime.now())),
+                                  _buildShowDetails(label: AppConstText.lblBreedingPartner, value: tempDetails.breedingType ?? ""),
+                                  _buildShowDetails(label: AppConstText.lblPregnancy, value: (tempDetails.isPregnancy ?? false) ? AppConstText.lblY : AppConstText.lblN),
                                 ],
                               )
                             ],
@@ -227,7 +219,7 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       Expanded(
                         child: AppButton(
-                          color: const Color(0xFF0F0F1A).withAlpha(25),
+                          color: AppColors.secondaryBtnColor.withValues(alpha: 0.1),
                           splashColor: AppColors.btnColor,
                           width: MediaQuery.of(context).size.width,
                           shapeBorder: const OutlineInputBorder(

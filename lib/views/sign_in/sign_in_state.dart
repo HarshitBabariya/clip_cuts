@@ -17,3 +17,4 @@ class Failed extends SignInState {
 
   Failed({this.message});
 }
+

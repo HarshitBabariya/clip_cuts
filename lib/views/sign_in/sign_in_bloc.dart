@@ -3,7 +3,6 @@ import 'package:clip_cuts/utils/auth_interceptor.dart';
 import 'package:clip_cuts/views/sign_in/sign_in_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nb_utils/nb_utils.dart'; // Ensure NBUtils is imported
 
 import 'sign_in_event.dart';
 import 'sign_in_state.dart';
@@ -13,34 +12,25 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final FocusNode emailFocus = FocusNode();
+  final FocusNode passwordFocus = FocusNode();
   final SignInRepo _signInRepo = SignInRepo();
-  final FocusNode emailFocusNode = FocusNode();
-  final FocusNode passwordFocusNode = FocusNode();
-  late SharedPreferences sharedPreferences;
-
+  bool isPasswordVisible = false;
   bool rememberMe = false;
 
   SignInBloc() : super(Init()) {
     on<SignInButtonEvent>(_onSignInButtonPressed);
 
     // Load saved credentials when Bloc is created
-    _loadSavedCredentials();
     on<ToggleRememberMeEvent>((event, emit) {
       rememberMe = event.value;
       emit(Init()); // Rebuilds UI with updated rememberMe value
     });
 
-  }
-
-
-
-  Future<void> _loadSavedCredentials() async {
-    // bool? savedRememberMe = getBoolAsync('remember_me');
-    // if (savedRememberMe) {
-    //   emailController.text = getStringAsync('saved_email');
-    //   passwordController.text = getStringAsync('saved_password');
-    //   rememberMe = true;
-    // }
+    on<TogglePasswordVisibilityEvent>((event, emit) {
+      isPasswordVisible = event.isPasswordVisible;
+      emit(Init());
+    });
   }
 
   Future<void> _onSignInButtonPressed(SignInButtonEvent event, Emitter<SignInState> emit) async {
@@ -53,9 +43,6 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
         final token = response.data?.data?.token ?? '';
         await AuthService.saveAuthToken(token);
         AuthInterceptor.setToken(token);
-
-
-
         emit(Loaded(message: response.data?.message));
       } else {
         emit(Failed(message: response.message));
@@ -64,15 +51,14 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
       print(e.toString());
       emit(Failed(message: e.toString()));
     }
-
   }
-
-
 
   @override
   Future<void> close() {
     emailController.dispose();
     passwordController.dispose();
+    emailFocus.dispose();
+    passwordFocus.dispose();
     return super.close();
   }
 }

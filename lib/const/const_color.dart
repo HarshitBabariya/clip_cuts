@@ -16,5 +16,6 @@ class AppColors {
   static const Color labelHintColor = Color(0xFF888888);
   static const Color secondaryHintColor = Color(0xFF999999);
   static const Color secondaryLabelColor = Color(0xFF545454);
+  static const Color secondaryBtnColor = Color(0xFF0F0F1A);
 
 }

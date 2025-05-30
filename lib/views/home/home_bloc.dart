@@ -62,7 +62,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         matingDate: parseDate('12/12/23')
     )
   ];
-  final FocusNode searchFocusNode = FocusNode();
   List<PetDetailsModel> filteredPetList = [];
 
   HomeBloc() : super(Init()) {

@@ -40,132 +40,190 @@ class SignInScreen extends StatelessWidget {
       },
       builder: (context, state) {
         return Scaffold(
-          extendBodyBehindAppBar: true,
+          resizeToAvoidBottomInset: false,
           backgroundColor: AppColors.white,
           body: CommonProgressIndicator(
             isLoading: state is Loading,
-            child: ListView(
-              shrinkWrap: true,
+            child: Stack(
               children: [
-                Stack(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.only(bottom: 25),
-                      child: Image.asset(AppImages.loginBG, width: MediaQuery.sizeOf(context).width, height: MediaQuery.sizeOf(context).height / 3, fit: BoxFit.cover, errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                        return const SizedBox();
-                      }),
+                Positioned.fill(
+                  bottom: 50,
+                  child: SingleChildScrollView(
+                    physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom > 0 ? MediaQuery.of(context).viewInsets.bottom : 24
                     ),
-                    Positioned(
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      child: Image.asset(AppImages.appLogo, width: 125, height: 125, errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                        return const SizedBox();
-                      }),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 25),
-                Center(child: Text("Welcome Back", style: AppFonts.ralewayBold.copyWith(fontSize: 24, color: AppColors.primaryTextColor))),
-                SizedBox(height: 5),
-                Center(child: Text("Hello there. sign in to continue", style: AppFonts.ralewayMedium.copyWith(fontSize: 16, color: AppColors.hintTextColor))),
-                SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Form(
-                    key: context.read<SignInBloc>().formKey,
                     child: Column(
                       children: [
-                        AppComponent.commonTextField(
-                          controller: context.read<SignInBloc>().emailController,
-                          keyboardType: TextInputType.emailAddress,
-                          textFieldType: TextFieldType.EMAIL,
-                          contexts: context,
-                          iconName: AppImages.email,
-                          hintText: AppHintText.hintEmailAddress,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return AppValidation.emailEmpty;
-                            } else if (!AppRegex.emailRegex.hasMatch(value)) {
-                              return AppValidation.emailNotValid;
-                            }
-                            return null;
-                          },
-                        ),
-                        SizedBox(height: 20),
-                        AppComponent.commonTextField(
-                          controller: context.read<SignInBloc>().passwordController,
-                          textFieldType: TextFieldType.PASSWORD,
-                          hintText: AppHintText.hintPassword,
-                          textInputAction: TextInputAction.done,
-                          contexts: context,
-                          icon: Icons.remove_red_eye,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return AppValidation.passwordEmpty;
-                            } else if (!AppRegex.passwordRegex.hasMatch(value)) {
-                              return AppValidation.passwordNotValid;
-                            }
-                            return null;
-                          },
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        Stack(
                           children: [
-                            Expanded(
-                              child: CheckboxListTile(
-                                contentPadding: EdgeInsets.symmetric(horizontal: 0),
-                                title: Text("Remember me", style: AppFonts.ralewayMedium.copyWith(fontSize: 13, color: AppColors.primaryTextColor)),
-                                activeColor: AppColors.yellowColor,
-                                controlAffinity: ListTileControlAffinity.leading,
-                                side: BorderSide(color: AppColors.normalBorderColor),
-                                value: signInBloc.rememberMe,
-                                onChanged: (value) {
-                                  context.read<SignInBloc>().add(ToggleRememberMeEvent(value ?? false));
+                            Container(
+                              padding: const EdgeInsets.only(bottom: 25),
+                              child: Image.asset(
+                                AppImages.signInBG,
+                                width: MediaQuery.sizeOf(context).width,
+                                height: MediaQuery.sizeOf(context).height / 3,
+                                fit: BoxFit.cover,
+                                errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                                  return const SizedBox();
                                 },
                               ),
                             ),
-                            TextButton(
-                                onPressed: () {},
-                                child: Text(
-                                  "Forget password?",
-                                  style: AppFonts.ralewayMedium.copyWith(fontSize: 13, color: AppColors.hintTextColor),
-                                ))
+                            Positioned(
+                              bottom: 0,
+                              left: 0,
+                              right: 0,
+                              child: Image.asset(
+                                AppImages.signIn,
+                                width: 100,
+                                height: 100,
+                                errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                                  return const SizedBox();
+                                },
+                              ),
+                            ),
                           ],
                         ),
-                        SizedBox(height: 15),
-                        AppButton(
-                          color: AppColors.btnColor,
-                          splashColor: AppColors.btnColor,
-                          width: MediaQuery.sizeOf(context).width,
-                          shapeBorder: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(53))),
-                          onTap: () {
-                            if (signInBloc.formKey.currentState!.validate()) {
-                              context.read<SignInBloc>().add(SignInButtonEvent(email: signInBloc.emailController.text, password: signInBloc.passwordController.text));
-                            }
-                          },
-                          child: Text("SIGN IN", style: AppFonts.ralewayBold.copyWith(fontSize: 16, color: AppColors.white)),
-                        )
+                        const SizedBox(height: 25),
+                        Center(
+                          child: Text(
+                            AppConstText.lblWelcomeBack,
+                            style: AppFonts.ralewayBold.copyWith(fontSize: 24, color: AppColors.primaryTextColor),
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        Center(
+                          child: Text(
+                            AppConstText.lblHello,
+                            style: AppFonts.ralewayMedium.copyWith(fontSize: 16, color: AppColors.hintTextColor),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Form(
+                            key: signInBloc.formKey,
+                            child: Column(
+                              children: [
+                                AppComponent.commonTextField(
+                                  controller: signInBloc.emailController,
+                                  keyboardType: TextInputType.emailAddress,
+                                  textFieldType: TextFieldType.EMAIL,
+                                  contexts: context,
+                                  iconName: AppImages.email,
+                                  focusNode: signInBloc.emailFocus,
+                                  hintText: AppHintText.hintEmailAddress,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return AppValidation.emailEmpty;
+                                    } else if (!AppRegex.emailRegex.hasMatch(value)) {
+                                      return AppValidation.emailNotValid;
+                                    }
+                                    return null;
+                                  },
+                                ),
+                                const SizedBox(height: 20),
+                                AppComponent.commonTextField(
+                                  controller: signInBloc.passwordController,
+                                  textFieldType: TextFieldType.OTHER,
+                                  hintText: AppHintText.hintPassword,
+                                  textInputAction: TextInputAction.done,
+                                  contexts: context,
+                                  focusNode: signInBloc.passwordFocus,
+                                  obscureText: !signInBloc.isPasswordVisible,
+                                  iconName: context.read<SignInBloc>().isPasswordVisible ? AppImages.eye : AppImages.eyeSlash,
+                                  onIconTap: () {
+                                    context.read<SignInBloc>().add(TogglePasswordVisibilityEvent(
+                                        signInBloc.isPasswordVisible = !signInBloc.isPasswordVisible
+                                    ));
+                                  },
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return AppValidation.passwordEmpty;
+                                    } else if (!AppRegex.passwordRegex.hasMatch(value)) {
+                                      return AppValidation.passwordNotValid;
+                                    }
+                                    return null;
+                                  },
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: CheckboxListTile(
+                                        contentPadding: EdgeInsets.zero,
+                                        title: Text(
+                                          AppConstText.lblRemember,
+                                          style: AppFonts.ralewayMedium.copyWith(fontSize: 13, color: AppColors.primaryTextColor),
+                                        ),
+                                        activeColor: AppColors.yellowColor,
+                                        controlAffinity: ListTileControlAffinity.leading,
+                                        side: BorderSide(color: AppColors.normalBorderColor),
+                                        value: signInBloc.rememberMe,
+                                        onChanged: (value) {
+                                          signInBloc.add(ToggleRememberMeEvent(value ?? false));
+                                        },
+                                      ),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {},
+                                      child: Text(
+                                        AppConstText.lblForget,
+                                        style: AppFonts.ralewayMedium.copyWith(fontSize: 13, color: AppColors.hintTextColor),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 15),
+                                AppComponent.commonBtn(
+                                  context: context,
+                                  btnText: AppConstText.lblSignIn.toUpperCase(),
+                                  onTap: () {
+                                    if (signInBloc.formKey.currentState!.validate()) {
+                                      signInBloc.add(SignInButtonEvent(
+                                        email: signInBloc.emailController.text,
+                                        password: signInBloc.passwordController.text,
+                                      ));
+                                    }
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 20),
                       ],
                     ),
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("Don't have an account?", style: AppFonts.ralewayMedium.copyWith(fontSize: 14, color: AppColors.hintTextColor)),
-                    TextButton(
-                      onPressed: () {},
-                      child: Text("Sign up ", style: AppFonts.ralewayBold.copyWith(fontSize: 14, color: AppColors.primaryTextColor)),
-                    )
-                  ],
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        AppConstText.lblDoNotAccount,
+                        style: AppFonts.ralewayMedium.copyWith(fontSize: 14, color: AppColors.hintTextColor),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          NavigatorService.pushNamed(AppRoutes.signUpScreen);
+                        },
+                        child: Text(
+                          AppConstText.lblSignUp,
+                          style: AppFonts.ralewayBold.copyWith(fontSize: 14, color: AppColors.primaryTextColor),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                SizedBox(height: 5)
               ],
             ),
           ),
         );
-      },
+      }
     );
   }
 }
